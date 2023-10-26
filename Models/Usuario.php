@@ -4,7 +4,7 @@ class Usuario
 {
 
     public static function info($cedula, $id = null)
-    {
+    {        
         $stmt = Conexion::conectar()->prepare("SELECT id, cedula, nombre, correo, password, rol, estado  FROM usuarios WHERE cedula = :cedula OR id = :id;");
         $stmt->bindParam(':cedula', $cedula, PDO::PARAM_INT);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);

@@ -27,7 +27,9 @@
     <div class="container-fluid ps-md-0">
 
         <?php
-        if (isset($_SESSION['iniciarSession']) && $_SESSION['iniciarSession'] == 'ok') {
+        if (isset($_GET['ruta']) && $_GET['ruta'] == 'registros') {
+            include "modulos/registros/registros.php";
+        } elseif (isset($_SESSION['iniciarSession']) && $_SESSION['iniciarSession'] == 'ok') {
 
             //incluimos el navbar
             include 'includes/navbar.php';
@@ -59,21 +61,13 @@
             }
         } elseif (isset($_GET['ruta']) && $_GET['ruta'] == 'salir') {
             include "modulos/salir.php";
-        } elseif (isset($_GET['ruta']) && $_GET['ruta'] == 'registros') {
-            include "modulos/registros/registros.php";
         } else {
             include "modulos/login.php";
         }
 
         ?>
 
-
-
-
-    </div>
-
-
-
+    </div><!-- container-fluid -->
 
 </body>
 
