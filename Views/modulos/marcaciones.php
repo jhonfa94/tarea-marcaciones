@@ -5,10 +5,10 @@ $marcaciones = MarcacionController::listar();
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12 col-sm-8 col-md-6">
+        <div class="col-12 col-sm-8 ">
             <h1 class="text-center">Listado de Marcaciones</h1>
 
-            <table class="table table-sm table-bordered table-stripe table-hover w-full ">
+            <table class="table table-sm table-bordered table-stripe table-hover w-full " id="tblMarcaciones">
                 <thead class="thead-light">
                     <tr>
                         <th>#</th>
@@ -41,3 +41,11 @@ $marcaciones = MarcacionController::listar();
     </div>
 
 </div>
+
+<script defer>
+    let table = new DataTable('#tblMarcaciones', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+        },
+    });
+</script>

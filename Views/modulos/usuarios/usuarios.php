@@ -79,7 +79,7 @@ $usuarios = UsuarioController::listarUsuarios();
         <div class="col-12">
 
 
-            <table class="table table-sm table-hover table-stripe table-bordered w-full">
+            <table class="table table-sm table-hover table-stripe table-bordered w-full" id="tblUsuarios">
                 <thead class="thead-light">
                     <tr>
                         <th>#</th>
@@ -122,3 +122,11 @@ $usuarios = UsuarioController::listarUsuarios();
 
     </div>
 </div>
+
+<script defer>
+    let table = new DataTable('#tblUsuarios', {
+        language: {
+            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+        },
+    });
+</script>
