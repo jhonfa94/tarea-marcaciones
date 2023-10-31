@@ -68,7 +68,7 @@ class UsuarioController
             // header("Location: index.php?ruta=empleados");
             echo "
                 <script>                 
-                    window.location.replace('/marcaciones/index.php?ruta=empleados');                 
+                    window.location.replace('/marcaciones/admin/index.php?ruta=empleados');                 
                 </script>
             
             ";
@@ -134,7 +134,7 @@ class UsuarioController
             $data = [
                 'id'  => $idUsuario,
                 'cedula'  => $cedula,
-                'nombre'  => $_POST['nombre'],                
+                'nombre'  => $_POST['nombre'],
                 'correo'  => $_POST['correo'],
                 'rol'  => $_POST['rol'],
                 'estado'  => $_POST['estado'],

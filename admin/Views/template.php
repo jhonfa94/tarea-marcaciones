@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="shortcut icon" href="<?= URL ?>/views/assets/img/favicon.ico" type="image/x-icon">
+
     <link rel="stylesheet" href="<?= URL ?>/views/plugins/bootstrap/css/bootstrap.min.css">
 
     <!-- Datatables -->
@@ -12,7 +14,7 @@
     <link rel="stylesheet" href="<?= URL ?>/views/plugins/datatables/dataTables.bootstrap5.min.css">
 
 
-    <title>MARCACIONES</title>
+    <title>ADMIN - SISTEMA DE MARCACIONES</title>
 
     <!-- scrips js -->
     <script src="<?= URL ?>/views/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -27,9 +29,7 @@
     <div class="container-fluid ps-md-0">
 
         <?php
-        if (isset($_GET['ruta']) && $_GET['ruta'] == 'registros') {
-            include "modulos/registros/registros.php";
-        } elseif (isset($_SESSION['iniciarSession']) && $_SESSION['iniciarSession'] == 'ok') {
+        if (isset($_SESSION['iniciarSession']) && $_SESSION['iniciarSession'] == 'ok') {
 
             //incluimos el navbar
             include 'includes/navbar.php';
