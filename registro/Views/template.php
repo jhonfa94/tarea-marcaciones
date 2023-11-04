@@ -35,7 +35,7 @@
             <div class="col-md-6 mt-5 card">
                 <h2 class="text-center mt-2">REGISTRAR MARCACIÓN</h2>
                 <form method="get">
-                    <input type="hidden" name="registrarMarcacion" value="ok">
+                    <input type="hidden" name="marcacion" value="MANUAL">
 
                     <div class="form-group">
                         <!-- <label for="cedula">Text</label> -->

@@ -7,8 +7,9 @@ class RegistroController
 
     public static function marcacion()
     {
-        if (isset($_GET['registrarMarcacion']) && $_GET['registrarMarcacion'] == 'ok') {
+        if (isset($_GET['cedula'])) {
             $cedula = $_GET['cedula'];
+            $tipo_marcacion = $_GET['marcacion'];
 
             $infoEmpleado = Empleado::info($cedula, $cedula);
             HelperController::clearDataFormJs();
@@ -51,7 +52,7 @@ class RegistroController
 
             // SI NO SE TIENE IFORMACION SE GENERA REGISTRO DE MARCACION
             if (!count($infoMarcacion) > 0) {
-                $registro = Registro::registrar($idEmpleado);
+                $registro = Registro::registrar($idEmpleado, $tipo_marcacion);
                 if ($registro) {
                     echo "
                         <div class='alert alert-success mt-3' role='alert'>
@@ -62,7 +63,7 @@ class RegistroController
                     die();
                 }
             } else {
-                $update = Registro::actualizar($infoMarcacion['id'], $idEmpleado);
+                $update = Registro::actualizar($infoMarcacion['id'], $idEmpleado, $tipo_marcacion);
                 if ($update) {
                     echo "
                         <div class='alert alert-success mt-3' role='alert'>
