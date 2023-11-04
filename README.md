@@ -24,3 +24,5 @@ El proyecto se encuentra desarrollado bajo las siguietes tecnologías web:
 
 - En el archivo config.php se debe configurar la url del proyecto. 
 - En el archivo ***Models/Conexion.php*** se debe configurar los valores de la conexión de la base de datos. 
+
+> Usuario y Contraseña: **1234567**

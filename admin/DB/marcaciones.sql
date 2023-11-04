@@ -30,23 +30,44 @@ CREATE TABLE IF NOT EXISTS `empleados` (
   `fecha_nacimiento` date NOT NULL,
   `correo` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `estado` tinyint NOT NULL DEFAULT '1',
+  `lugar_marcacion` int unsigned DEFAULT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `cedula` (`cedula`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `cedula` (`cedula`),
+  KEY `FK_lugar_marcacion` (`lugar_marcacion`),
+  CONSTRAINT `FK_lugar_marcacion` FOREIGN KEY (`lugar_marcacion`) REFERENCES `lugares` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla marcaciones.empleados: ~9 rows (aproximadamente)
+-- Volcando datos para la tabla marcaciones.empleados: ~11 rows (aproximadamente)
 DELETE FROM `empleados`;
-INSERT INTO `empleados` (`id`, `cedula`, `nombre`, `apellido`, `fecha_nacimiento`, `correo`, `estado`, `fecha_registro`) VALUES
-	(1, 1234, 'Test', 'One', '1999-10-21', 'tester@test.com', 1, '2023-10-21 18:12:08'),
-	(2, 1444, 'Juan', 'Urrego', '1990-10-15', 'juan@gmail.com', 1, '2023-10-21 18:12:08'),
-	(3, 122, 'Magni quos exercitat', 'Labore modi ullamco ', '1997-05-08', 'dawud@mailinator.com', 1, '2023-10-21 19:07:36'),
-	(5, 31, 'Voluptas expedita si', 'Enim sapiente sunt d', '1981-10-26', 'bujysa@mailinator.com', 0, '2023-10-21 19:11:29'),
-	(6, 18, 'Minus sunt ad non i', 'Nisi exercitationem ', '2006-03-25', 'qigyhypa@mailinator.com', 1, '2023-10-21 19:12:25'),
-	(7, 77, 'Ipsum aliquid dolore', 'Est elit cillum ius', '1975-12-14', 'molipozyq@mailinator.com', 0, '2023-10-21 19:12:41'),
-	(8, 38, 'Voluptatem hic adipi', 'Saepe laudantium in', '1995-07-04', 'keqipic@mailinator.com', 1, '2023-10-21 19:14:27'),
-	(9, 82222222, 'Consectetur in et v', 'Minima et sit blandi', '1997-04-20', 'cotewedof@mailinator.com', 1, '2023-10-21 19:16:00'),
-	(10, 48, 'Dicta et ad et aut e', 'Nemo vel corrupti i', '1979-12-25', 'wuhe@mailinator.com', 0, '2023-10-21 21:22:02');
+INSERT INTO `empleados` (`id`, `cedula`, `nombre`, `apellido`, `fecha_nacimiento`, `correo`, `estado`, `lugar_marcacion`, `fecha_registro`) VALUES
+	(1, 1234, 'Test', 'One', '1999-10-21', 'tester@test.com', 1, 1, '2023-10-21 18:12:08'),
+	(2, 1444, 'Juan', 'Urrego', '1990-10-15', 'juan@gmail.com', 1, 2, '2023-10-21 18:12:08'),
+	(3, 122, 'Magni quos exercitat', 'Labore modi ullamco ', '1997-05-08', 'dawud@mailinator.com', 1, 3, '2023-10-21 19:07:36'),
+	(5, 31, 'Voluptas expedita si', 'Enim sapiente sunt d', '1981-10-26', 'bujysa@mailinator.com', 0, 4, '2023-10-21 19:11:29'),
+	(6, 18, 'Minus sunt ad non i', 'Nisi exercitationem ', '2006-03-25', 'qigyhypa@mailinator.com', 1, 3, '2023-10-21 19:12:25'),
+	(7, 77, 'Ipsum aliquid dolore', 'Est elit cillum ius', '1975-12-14', 'molipozyq@mailinator.com', 0, 2, '2023-10-21 19:12:41'),
+	(8, 38, 'Voluptatem hic adipi', 'Saepe laudantium in', '1995-07-04', 'keqipic@mailinator.com', 1, 1, '2023-10-21 19:14:27'),
+	(9, 82222222, 'Consectetur in et v', 'Minima et sit blandi', '1997-04-20', 'cotewedof@mailinator.com', 1, 2, '2023-10-21 19:16:00'),
+	(10, 48, 'Dicta et ad et aut e', 'Nemo vel corrupti i', '1979-12-25', 'wuhe@mailinator.com', 0, 3, '2023-10-21 21:22:02'),
+	(11, 10100, 'In maiores aut dolor', 'Debitis ut nesciunt', '2015-02-20', 'falusim@mailinator.com', 1, 1, '2023-10-31 04:24:51'),
+	(12, 12345, 'Repudiandae sit aut ', 'Omnis molestiae temp', '2011-08-04', 'dyroboqug@mailinator.com', 0, 2, '2023-11-04 20:01:54');
+
+-- Volcando estructura para tabla marcaciones.lugares
+DROP TABLE IF EXISTS `lugares`;
+CREATE TABLE IF NOT EXISTS `lugares` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `lugar` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Volcando datos para la tabla marcaciones.lugares: ~4 rows (aproximadamente)
+DELETE FROM `lugares`;
+INSERT INTO `lugares` (`id`, `lugar`) VALUES
+	(1, 'GENERAL'),
+	(2, 'RECURSOS HUMANOS'),
+	(3, 'NOMINA'),
+	(4, 'PORTERIA');
 
 -- Volcando estructura para tabla marcaciones.marcaciones
 DROP TABLE IF EXISTS `marcaciones`;
@@ -54,20 +75,21 @@ CREATE TABLE IF NOT EXISTS `marcaciones` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `empleado_id` bigint unsigned NOT NULL,
   `entrada` timestamp NOT NULL,
+  `tipo_entrada` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   `salida` timestamp NULL DEFAULT NULL,
+  `tipo_salida` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_empleado_id_marcaciones` (`empleado_id`),
   CONSTRAINT `FK_empleado_id_marcaciones` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para el control de las marcaciones';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para el control de las marcaciones';
 
--- Volcando datos para la tabla marcaciones.marcaciones: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla marcaciones.marcaciones: ~3 rows (aproximadamente)
 DELETE FROM `marcaciones`;
-INSERT INTO `marcaciones` (`id`, `empleado_id`, `entrada`, `salida`, `registro`) VALUES
-	(1, 1, '2023-10-26 17:15:39', '2023-10-26 17:21:05', '2023-10-25 17:15:39'),
-	(2, 8, '2023-10-26 11:38:52', '2023-10-26 17:41:35', '2023-10-26 17:38:52'),
-	(4, 2, '2023-10-26 18:06:20', '2023-10-26 18:10:29', '2023-10-26 18:06:20'),
-	(5, 1, '2023-10-26 18:12:55', '2023-10-26 18:13:04', '2023-10-26 18:12:55');
+INSERT INTO `marcaciones` (`id`, `empleado_id`, `entrada`, `tipo_entrada`, `salida`, `tipo_salida`, `registro`) VALUES
+	(1, 1, '2023-11-04 13:21:00', 'MANUAL', '2023-11-04 19:47:27', 'QR', '2023-11-04 19:21:00'),
+	(2, 2, '2023-11-04 20:23:48', 'MANUAL', NULL, NULL, '2023-11-04 20:23:48'),
+	(3, 3, '2023-11-04 20:24:44', 'MANUAL', '2023-11-04 20:26:34', 'QR', '2023-11-04 20:24:44');
 
 -- Volcando estructura para tabla marcaciones.sessiones
 DROP TABLE IF EXISTS `sessiones`;
@@ -78,9 +100,9 @@ CREATE TABLE IF NOT EXISTS `sessiones` (
   `dispositivo` varchar(1000) COLLATE utf8mb4_general_ci NOT NULL,
   `fecha_hora` timestamp NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para almacenar las sesiones ';
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para almacenar las sesiones ';
 
--- Volcando datos para la tabla marcaciones.sessiones: ~21 rows (aproximadamente)
+-- Volcando datos para la tabla marcaciones.sessiones: ~29 rows (aproximadamente)
 DELETE FROM `sessiones`;
 INSERT INTO `sessiones` (`id`, `cedula`, `estado`, `dispositivo`, `fecha_hora`) VALUES
 	(1, 1093537019, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.57', '2023-10-21 17:31:09'),
@@ -104,7 +126,14 @@ INSERT INTO `sessiones` (`id`, `cedula`, `estado`, `dispositivo`, `fecha_hora`) 
 	(19, 123456789, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.69', '2023-10-26 17:42:05'),
 	(20, 123456789, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.69', '2023-10-26 18:15:26'),
 	(21, 123456789, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.69', '2023-10-26 18:16:11'),
-	(22, 1234567, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.69', '2023-10-26 18:23:29');
+	(22, 1234567, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.69', '2023-10-26 18:23:29'),
+	(23, 1234567, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.69', '2023-10-26 22:02:27'),
+	(24, 123456789, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.69', '2023-10-26 22:08:18'),
+	(25, 123456789, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.76', '2023-10-31 03:10:07'),
+	(26, 123456789, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.76', '2023-10-31 03:11:00'),
+	(27, 123456789, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.76', '2023-10-31 04:02:18'),
+	(28, 123456789, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.76', '2023-10-31 04:24:35'),
+	(29, 1234567, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0', '2023-11-04 19:30:43');
 
 -- Volcando estructura para tabla marcaciones.usuarios
 DROP TABLE IF EXISTS `usuarios`;
@@ -121,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla de usuarios';
 
--- Volcando datos para la tabla marcaciones.usuarios: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla marcaciones.usuarios: ~4 rows (aproximadamente)
 DELETE FROM `usuarios`;
 INSERT INTO `usuarios` (`id`, `cedula`, `nombre`, `correo`, `password`, `rol`, `estado`, `created_at`, `updated_at`) VALUES
 	(1, 123456789, 'Jhon Fabio Cardona', 'jfcm@gmail.com', '$2y$10$jvHEd8tnLh0KiRbxRFQL7.IduXwQ.A0fT7sUI57xywri0WT.vxljW', 'developer', 1, '2023-10-21 16:57:20', '2023-10-21 21:23:38'),
