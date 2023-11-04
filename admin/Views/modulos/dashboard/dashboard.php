@@ -29,7 +29,7 @@ $marcaciones = $datos['marcaciones'];
         <div class="col-sm-2">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    Total de Empleados
+                    Total de Empleados Activos
                 </div>
                 <div class="card-body text-center">
                     <h3><?= $datos['totalEmpleados'] ?></h3>
