@@ -57,6 +57,8 @@ class RegistroController
                     echo "
                         <div class='alert alert-success mt-3' role='alert'>
                             Bienvenido $nombreEmpleado
+                            <br>
+                            Tipo Marcación: $tipo_marcacion
                         </div>
                     ";
                     HelperController::redirectPage(URL, 3000);
@@ -68,6 +70,8 @@ class RegistroController
                     echo "
                         <div class='alert alert-success mt-3' role='alert'>
                             Marcación Finalizada $nombreEmpleado
+                            <br>
+                            Tipo Marcación: $tipo_marcacion
                         </div>
                     ";
                     HelperController::redirectPage(URL, 3000);

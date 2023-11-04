@@ -19,7 +19,10 @@ class Empleado
 
     public static function listar()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM empleados");
+        $stmt = Conexion::conectar()->prepare("SELECT e.id, e.cedula, e.nombre, e.apellido, e.fecha_nacimiento, e.correo, e.estado, l.lugar
+            FROM empleados e
+            JOIN lugares l ON e.lugar_marcacion = l.id
+        ");
         $stmt->execute();
         $retorno = $stmt->rowCount() > 0 ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
         $stmt->closeCursor();
@@ -29,8 +32,8 @@ class Empleado
     public static function registrar($data)
     {
         $conexion = Conexion::conectar();
-        $insertEmpleado = $conexion->prepare("INSERT INTO empleados (cedula, nombre, apellido, fecha_nacimiento, correo, estado) 
-            VALUES(:cedula, :nombre, :apellido, :fecha_nacimiento, :correo, :estado); 
+        $insertEmpleado = $conexion->prepare("INSERT INTO empleados (cedula, nombre, apellido, fecha_nacimiento, correo, estado, lugar_marcacion) 
+            VALUES(:cedula, :nombre, :apellido, :fecha_nacimiento, :correo, :estado, :lugar_marcacion); 
         ");
         $insertEmpleado->bindParam(':cedula', $data['cedula'], PDO::PARAM_INT);
         $insertEmpleado->bindParam(':nombre', $data['nombre'], PDO::PARAM_STR);
@@ -38,6 +41,7 @@ class Empleado
         $insertEmpleado->bindParam(':fecha_nacimiento', $data['fecha_nacimiento'], PDO::PARAM_STR);
         $insertEmpleado->bindParam(':correo', $data['correo'], PDO::PARAM_STR);
         $insertEmpleado->bindParam(':estado', $data['estado'], PDO::PARAM_STR);
+        $insertEmpleado->bindParam(':lugar_marcacion', $data['lugar_marcacion'], PDO::PARAM_INT);
         $insertEmpleado->execute();
         $id = $conexion->lastInsertId();
         $retorno = $id  > 0 ? $id : 0;
@@ -52,7 +56,8 @@ class Empleado
                 apellido = :apellido,
                 fecha_nacimiento = :fecha_nacimiento,
                 correo = :correo,
-                estado = :estado        
+                estado = :estado, 
+                lugar_marcacion = :lugar_marcacion        
             WHERE id = :id
 
         ");
@@ -63,6 +68,7 @@ class Empleado
         $updateEmpleado->bindParam(':fecha_nacimiento', $data['fecha_nacimiento'], PDO::PARAM_STR);
         $updateEmpleado->bindParam(':correo', $data['correo'], PDO::PARAM_STR);
         $updateEmpleado->bindParam(':estado', $data['estado'], PDO::PARAM_STR);
+        $updateEmpleado->bindParam(':lugar_marcacion', $data['lugar_marcacion'], PDO::PARAM_INT);
         $updateEmpleado->execute();
         $retorno = $updateEmpleado->rowCount() > 0 ? true : false;
         $updateEmpleado->closeCursor();

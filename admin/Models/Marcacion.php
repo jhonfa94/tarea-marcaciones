@@ -7,7 +7,10 @@
             DATE_FORMAT(m.entrada, '%Y-%m-%d %H:%m:%s %p') AS entrada,
             DATE_FORMAT(m.salida, '%Y-%m-%d %H:%m:%s %p') AS salida,
             TIMESTAMPDIFF(HOUR ,m.entrada, m.salida) AS horas, 
-            CONCAT(e.nombre, ' ', e.apellido) AS empleado
+            CONCAT(e.nombre, ' ', e.apellido) AS empleado, 
+            tipo_entrada, 
+            tipo_salida
+
          FROM marcaciones m
          JOIN empleados e ON e.id = m.empleado_id
       ");
@@ -15,7 +18,17 @@
       $retorno = $stmt->rowCount() > 0 ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
       $stmt->closeCursor();
       return $retorno;
-   }    
+   }
+
+   public static function lugares()
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT id, lugar FROM lugares");
+      $stmt->execute();
+      $retorno  = $stmt->rowCount() > 0 ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
+      $stmt->closeCursor();
+      return $retorno;
+   }
+
  }
 
 ?>

@@ -38,7 +38,7 @@
             // var_dump($rutas);
             $ruta = $rutas[0];
             // echo "$ruta";
-            if (in_array($ruta, [
+            if (in_array($ruta, [                
                 'marcaciones',
                 'registro',
                 'salir',
@@ -56,6 +56,11 @@
                 'usuarios-edit',
             ])) {
                 include "modulos/usuarios/{$ruta}.php";
+            }
+            if (in_array($ruta, [
+                'dashboard',
+            ])) {
+                include "modulos/dashboard/{$ruta}.php";
             } else {
                 // include 'modulos/error/404.php';
             }

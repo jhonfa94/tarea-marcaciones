@@ -41,6 +41,7 @@ class EmpleadoController
                     'fecha_nacimiento' => $_POST['fecha_nacimiento'],
                     'correo' => $_POST['correo'],
                     'estado' => $_POST['estado'],
+                    'lugar_marcacion' => $_POST['lugar_marcacion'],
                 ];
 
                 $registro = Empleado::registrar($data);

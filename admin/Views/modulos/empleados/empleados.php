@@ -1,5 +1,6 @@
 <?php
 $empleados = EmpleadoController::listarEmpleados();
+$lugares = MarcacionController::lugares();
 
 ?>
 <div class="container">
@@ -60,6 +61,18 @@ $empleados = EmpleadoController::listarEmpleados();
                                     </select>
                                 </div>
 
+                                <div class="form-group">
+                                    <label for="lugar_marcacion">Lugar de marcación</label>
+                                    <select id="lugar_marcacion" class="form-control" name="lugar_marcacion" required>
+                                        <option value="" selected disabled>-- Seleccionar --</option>
+                                        <?php if (count($lugares) > 0) : ?>
+                                            <?php foreach ($lugares as $key => $lugar) : ?>
+                                                <option value="<?= $lugar['id'] ?>"><?= $lugar['lugar'] ?></option>
+                                            <?php endforeach ?>
+                                        <?php endif ?>
+                                    </select>
+                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -88,6 +101,7 @@ $empleados = EmpleadoController::listarEmpleados();
                         <th>FECHA NACIMIENTO</th>
                         <th>CORREO</th>
                         <th>ESTADO</th>
+                        <th>LUGAR DE MARCACIÓN</th>
                         <th>ACCIONES</th>
                     </tr>
                 </thead>
@@ -102,6 +116,7 @@ $empleados = EmpleadoController::listarEmpleados();
                                 <td><?= $empleado['fecha_nacimiento'] ?></td>
                                 <td><?= $empleado['correo'] ?></td>
                                 <td><?= $empleado['estado'] == 1 ? '<span class="badge text-bg-success">Activo</span>' : '<span class="badge text-bg-danger">Inactivo</span>' ?></td>
+                                <td><?= $empleado['lugar'] ?></td>
                                 <td>
                                     <a href="index.php?ruta=empleados-edit&id=<?= $empleado['id'] ?>" class="btn btn-sm btn-primary">
                                         Editar

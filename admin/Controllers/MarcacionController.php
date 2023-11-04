@@ -8,4 +8,9 @@ class MarcacionController
     {
         return Marcacion::listar();
     }
+
+    public static function lugares()
+    {
+        return Marcacion::lugares();
+    }
 }

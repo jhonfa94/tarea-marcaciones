@@ -5,7 +5,7 @@ $marcaciones = MarcacionController::listar();
 
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-12 col-sm-8 ">
+        <div class="col-12 col-sm-10 ">
             <h1 class="text-center">Listado de Marcaciones</h1>
 
             <table class="table table-sm table-bordered table-stripe table-hover w-full " id="tblMarcaciones">
@@ -13,8 +13,10 @@ $marcaciones = MarcacionController::listar();
                     <tr>
                         <th>#</th>
                         <th>EMPLEADO</th>
-                        <th>ENTRADA</th>
-                        <th>SALIDA</th>
+                        <th>TIPO ENTRADA</th>
+                        <th>FECHA ENTRADA</th>
+                        <th>TIPO SALIDA</th>
+                        <th>FECHA SALIDA</th>
                         <th>HORAS</th>
                     </tr>
                 </thead>
@@ -25,9 +27,11 @@ $marcaciones = MarcacionController::listar();
                             <tr>
                                 <td><?= $marcacion['id'] ?></td>
                                 <td><?= $marcacion['empleado'] ?></td>
+                                <td><?= $marcacion['tipo_entrada'] ?></td>
                                 <td><?= $marcacion['entrada'] ?></td>
+                                <td><?= $marcacion['tipo_salida'] ?></td>
                                 <td><?= $marcacion['salida'] ?></td>
-                                <td><?= $marcacion['horas'] ?></td>
+                                <td class="text-center"><?= $marcacion['horas'] ?></td>
                             </tr>
 
                         <?php endforeach ?>

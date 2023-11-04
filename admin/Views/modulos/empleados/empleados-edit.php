@@ -3,11 +3,13 @@ $id = isset($_GET["id"]) ? intval($_GET["id"]) : 0;
 $infoEmpleado = EmpleadoController::info($id);
 // var_dump($infoEmpleado);
 ?>
-<?php 
+<?php
 if (!count($infoEmpleado) > 0) :
     echo "<h2>El id  $id  no esta registrado en el sistema</h2>";
     die();
 endif;
+
+$lugares = MarcacionController::lugares();
 
 ?>
 
@@ -49,9 +51,29 @@ endif;
 
                 <div class="form-group">
                     <label for="estado">Estado</label>
-                    <select id="estado" class="form-control" name="estado" required >
+                    <select id="estado" class="form-control" name="estado" required>
                         <option value="1" <?= $infoEmpleado['estado'] == 1 ? 'selected' : '' ?>>Activo</option>
                         <option value="0" <?= $infoEmpleado['estado'] == 0 ? 'selected' : '' ?>>Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="estado">Estado</label>
+                    <select id="estado" class="form-control" name="estado" required>
+                        <option value="1" <?= $infoEmpleado['estado'] == 1 ? 'selected' : '' ?>>Activo</option>
+                        <option value="0" <?= $infoEmpleado['estado'] == 0 ? 'selected' : '' ?>>Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="lugar_marcacion">Lugar de marcación</label>
+                    <select id="lugar_marcacion" class="form-control" name="lugar_marcacion" required>
+                        <option value="" selected disabled>-- Seleccionar --</option>
+                        <?php if (count($lugares) > 0) : ?>
+                            <?php foreach ($lugares as $key => $lugar) : ?>
+                                <option value="<?= $lugar['id'] ?>" <?= $infoEmpleado['lugar_marcacion'] == $lugar['id'] ? 'selected' : '' ?>><?= $lugar['lugar'] ?></option>
+                            <?php endforeach ?>
+                        <?php endif ?>
                     </select>
                 </div>
 
