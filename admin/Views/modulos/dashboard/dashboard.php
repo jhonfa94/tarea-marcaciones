@@ -10,17 +10,18 @@ $marcaciones = $datos['marcaciones'];
 
 
     <div class="row justify-content-center mt-3">
-        <form method="post" class="row justify-content-center ">
-            <div class="col-sm-1">
-                <label for="fecha" class=""><b>Fecha</b></label>
-            </div>
-            <div class="col-sm-2 text-center">
-                <input id="fecha" class="form-control form-control-sm" type="date" max="<?= date('Y-m-d') ?>" name="fecha" value="<?= date('Y-m-d') ?>">
-            </div>
-            <div class="col-sm-2">
-                <button type="submit" class="btn btn-sm btn-info btn-block">Consultar</button>
-            </div>
-        </form>
+        <!-- <form method="get" action="index.php?ruta=dashboard" class="row justify-content-center "> -->
+        <div class="col-sm-1">
+            <label for="inputFecha" class=""><b>Fecha</b></label>
+        </div>
+        <div class="col-sm-2 text-center">
+            <input id="inputFecha" class="form-control form-control-sm" type="date" max="<?= date('Y-m-d') ?>" name="fecha" value="<?= $fecha ?>">
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-sm btn-info btn-block" id="btnConsultar">Consultar</button>
+            <!-- <a href="index.php?ruta=dashboard" class="btn btn-sm btn-info btn-block">Consultar</a> -->
+        </div>
+        <!-- </form> -->
 
     </div>
 
@@ -142,6 +143,18 @@ $marcaciones = $datos['marcaciones'];
 
 
 <script defer>
+    const inputFecha = document.querySelector('#inputFecha');
+    const btnConsultar = document.querySelector('#btnConsultar');
+    btnConsultar.addEventListener('click', (e) => {
+        e.preventDefault();
+        let fechaConsulta = inputFecha.value
+        let urlConsulta = `index.php?ruta=dashboard&fecha=${fechaConsulta}`
+
+        window.location = urlConsulta
+
+    })
+
+
     let table = new DataTable('#tblMarcacionesDashboard', {
         language: {
             url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',

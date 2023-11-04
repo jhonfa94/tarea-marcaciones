@@ -6,7 +6,7 @@ $marcaciones = MarcacionController::listar();
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-sm-10 ">
-            <h1 class="text-center">Listado de Marcaciones</h1>
+            <h1 class="text-center">Historial Listado de Marcaciones</h1>
 
             <table class="table table-sm table-bordered table-stripe table-hover w-full " id="tblMarcaciones">
                 <thead class="thead-light">
