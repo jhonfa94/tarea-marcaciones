@@ -118,9 +118,15 @@ $lugares = MarcacionController::lugares();
                                 <td><?= $empleado['estado'] == 1 ? '<span class="badge text-bg-success">Activo</span>' : '<span class="badge text-bg-danger">Inactivo</span>' ?></td>
                                 <td><?= $empleado['lugar'] ?></td>
                                 <td>
-                                    <a href="index.php?ruta=empleados-edit&id=<?= $empleado['id'] ?>" class="btn btn-sm btn-primary">
-                                        Editar
-                                    </a>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+
+                                        <a href="index.php?ruta=empleados-edit&id=<?= $empleado['id'] ?>" class="btn btn-sm btn-primary mr-1">
+                                            Editar
+                                        </a>
+                                        <a href="index.php?ruta=empleados-eliminar&id=<?= $empleado['id'] ?>" class="btn btn-sm btn-danger ml-2">
+                                            Eliminar
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endforeach ?>

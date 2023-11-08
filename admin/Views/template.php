@@ -48,6 +48,7 @@
             if (in_array($ruta, [
                 'empleados',
                 'empleados-edit',
+                'empleados-eliminar',
             ])) {
                 include "modulos/empleados/{$ruta}.php";
             }

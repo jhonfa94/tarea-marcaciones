@@ -73,6 +73,16 @@ class Empleado
         $retorno = $updateEmpleado->rowCount() > 0 ? true : false;
         $updateEmpleado->closeCursor();
         return $retorno;
-       
     }
+
+    public static function delete($id)
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE FROM empleados WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno = $stmt->rowCount() > 0 ? true  : false;
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
 }

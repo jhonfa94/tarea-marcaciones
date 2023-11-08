@@ -96,6 +96,19 @@ class EmpleadoController
                     </div>
                 ";
             }
+        }
+    }
+
+    public static function delete()
+    {
+        if (isset($_POST["eliminarEmpleado"])) {
+            $id = intval($_POST["idEmpleado"]);
+
+            $delete = Empleado::delete($id);
+            HelperController::clearDataFormJs();
+            if ($delete) {
+                HelperController::redirectPage("index.php?ruta=empleados", 0);
+            }
 
         }
     }
