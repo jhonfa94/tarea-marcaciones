@@ -29,7 +29,7 @@
     <div class="container-fluid ps-md-0">
 
         <?php
-        if (isset($_SESSION['iniciarSession']) && $_SESSION['iniciarSession'] == 'ok') {
+        if (isset($_SESSION['iniciarSession']) && $_SESSION['iniciarSession'] == 'ok' && isset($_GET['ruta'])) {
 
             //incluimos el navbar
             include 'includes/navbar.php';

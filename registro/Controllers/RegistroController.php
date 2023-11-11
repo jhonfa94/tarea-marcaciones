@@ -10,6 +10,8 @@ class RegistroController
         if (isset($_GET['cedula'])) {
             $cedula = $_GET['cedula'];
             $tipo_marcacion = $_GET['marcacion'];
+            $ubicacion = $_GET['ubicacion'];
+           
 
             $infoEmpleado = Empleado::info($cedula, $cedula);
             HelperController::clearDataFormJs();
@@ -38,6 +40,9 @@ class RegistroController
             $nombreEmpleado = $infoEmpleado['nombre'] . ' ' . $infoEmpleado['apellido'];
             $infoMarcacion = Registro::info($idEmpleado);
 
+            $ruta = $ubicacion == 1 ? 'general' : 'oficina';
+            $urlRedirect = URL . "/index.php?ruta=$ruta";
+
 
             // SI EXISTE UNA MARCACION SE VALIDA SI TIENE YA LA SALIDA
             if (count($infoMarcacion) > 0 && $infoMarcacion['salida'] != null) {
@@ -46,13 +51,13 @@ class RegistroController
                             $nombreEmpleado su jornada ya fue finalizada
                         </div>
                     ";
-                HelperController::redirectPage(URL, 3000);
+                HelperController::redirectPage($urlRedirect, 3000);
                 die();
             }
 
             // SI NO SE TIENE IFORMACION SE GENERA REGISTRO DE MARCACION
             if (!count($infoMarcacion) > 0) {
-                $registro = Registro::registrar($idEmpleado, $tipo_marcacion);
+                $registro = Registro::registrar($idEmpleado, $tipo_marcacion, $ubicacion);
                 if ($registro) {
                     echo "
                         <div class='alert alert-success mt-3' role='alert'>
@@ -61,11 +66,11 @@ class RegistroController
                             Tipo Marcación: $tipo_marcacion
                         </div>
                     ";
-                    HelperController::redirectPage(URL, 3000);
+                    HelperController::redirectPage($urlRedirect, 3000);
                     die();
                 }
             } else {
-                $update = Registro::actualizar($infoMarcacion['id'], $idEmpleado, $tipo_marcacion);
+                $update = Registro::actualizar($infoMarcacion['id'], $idEmpleado, $tipo_marcacion, $ubicacion);
                 if ($update) {
                     echo "
                         <div class='alert alert-success mt-3' role='alert'>
@@ -74,7 +79,7 @@ class RegistroController
                             Tipo Marcación: $tipo_marcacion
                         </div>
                     ";
-                    HelperController::redirectPage(URL, 3000);
+                    HelperController::redirectPage($urlRedirect, 3000);
                     die();
                 }
             }

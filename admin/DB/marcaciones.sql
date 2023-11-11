@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `empleados` (
   CONSTRAINT `FK_lugar_marcacion` FOREIGN KEY (`lugar_marcacion`) REFERENCES `lugares` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Volcando datos para la tabla marcaciones.empleados: ~10 rows (aproximadamente)
+-- Volcando datos para la tabla marcaciones.empleados: ~11 rows (aproximadamente)
 DELETE FROM `empleados`;
 INSERT INTO `empleados` (`id`, `cedula`, `nombre`, `apellido`, `fecha_nacimiento`, `correo`, `estado`, `lugar_marcacion`, `fecha_registro`) VALUES
 	(1, 1234, 'Test', 'One', '1999-10-21', 'tester@test.com', 1, 1, '2023-10-21 18:12:08'),
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `lugares` (
 DELETE FROM `lugares`;
 INSERT INTO `lugares` (`id`, `lugar`) VALUES
 	(1, 'GENERAL'),
-	(2, 'RECURSOS HUMANOS'),
+	(2, 'OFICINA'),
 	(3, 'NOMINA'),
 	(4, 'PORTERIA');
 
@@ -75,20 +75,25 @@ CREATE TABLE IF NOT EXISTS `marcaciones` (
   `empleado_id` bigint unsigned NOT NULL,
   `entrada` timestamp NOT NULL,
   `tipo_entrada` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `lugar_entrada_id` int unsigned NOT NULL,
   `salida` timestamp NULL DEFAULT NULL,
   `tipo_salida` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `lugar_salida_id` int unsigned DEFAULT NULL,
   `registro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `FK_empleado_id_marcaciones` (`empleado_id`),
-  CONSTRAINT `FK_empleado_id_marcaciones` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para el control de las marcaciones';
+  KEY `FK_lugar_entrada` (`lugar_entrada_id`),
+  CONSTRAINT `FK_empleado_id_marcaciones` FOREIGN KEY (`empleado_id`) REFERENCES `empleados` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_lugar_entrada` FOREIGN KEY (`lugar_entrada_id`) REFERENCES `lugares` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para el control de las marcaciones';
 
--- Volcando datos para la tabla marcaciones.marcaciones: ~3 rows (aproximadamente)
+-- Volcando datos para la tabla marcaciones.marcaciones: ~4 rows (aproximadamente)
 DELETE FROM `marcaciones`;
-INSERT INTO `marcaciones` (`id`, `empleado_id`, `entrada`, `tipo_entrada`, `salida`, `tipo_salida`, `registro`) VALUES
-	(1, 1, '2023-11-04 13:21:00', 'MANUAL', '2023-11-04 19:47:27', 'QR', '2023-11-04 19:21:00'),
-	(2, 2, '2023-11-04 20:23:48', 'MANUAL', NULL, NULL, '2023-11-04 20:23:48'),
-	(3, 3, '2023-11-04 20:24:44', 'MANUAL', '2023-11-04 20:26:34', 'QR', '2023-11-04 20:24:44');
+INSERT INTO `marcaciones` (`id`, `empleado_id`, `entrada`, `tipo_entrada`, `lugar_entrada_id`, `salida`, `tipo_salida`, `lugar_salida_id`, `registro`) VALUES
+	(1, 1, '2023-11-04 13:21:00', 'MANUAL', 1, '2023-11-04 19:47:27', 'QR', 0, '2023-11-04 19:21:00'),
+	(2, 2, '2023-11-04 20:23:48', 'MANUAL', 1, NULL, NULL, 0, '2023-11-04 20:23:48'),
+	(3, 3, '2023-11-04 20:24:44', 'MANUAL', 1, '2023-11-04 20:26:34', 'QR', 0, '2023-11-04 20:24:44'),
+	(10, 1, '2023-11-11 16:33:05', 'MANUAL', 1, '2023-11-11 16:33:50', 'MANUAL', 2, '2023-11-11 16:33:05');
 
 -- Volcando estructura para tabla marcaciones.sessiones
 DROP TABLE IF EXISTS `sessiones`;
@@ -101,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `sessiones` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='Tabla para almacenar las sesiones ';
 
--- Volcando datos para la tabla marcaciones.sessiones: ~30 rows (aproximadamente)
+-- Volcando datos para la tabla marcaciones.sessiones: ~28 rows (aproximadamente)
 DELETE FROM `sessiones`;
 INSERT INTO `sessiones` (`id`, `cedula`, `estado`, `dispositivo`, `fecha_hora`) VALUES
 	(1, 1093537019, 'ok', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36 Edg/118.0.2088.57', '2023-10-21 17:31:09'),
