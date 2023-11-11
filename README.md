@@ -26,3 +26,14 @@ El proyecto se encuentra desarrollado bajo las siguietes tecnologías web:
 - En el archivo ***Models/Conexion.php*** se debe configurar los valores de la conexión de la base de datos. 
 
 > Usuario y Contraseña: **1234567**
+
+
+###Ejemplo de url de marcación para QR: 
+> http://localhost/marcaciones/registro/index.php?ruta=general&marcacion=QR&ubicacion=1&cedula=48
+
+* Ruta: general u oficina
+* Marcación: QR
+* Ubicación: 1 => General || 2 => Oficina
+* Cédula: Número de la cédula del empleado
+
+
