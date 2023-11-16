@@ -17,9 +17,11 @@ $rutaActiveClass = isset($_GET['ruta']) ? $_GET['ruta'] : '';
                 <li class="nav-item">
                     <a class="nav-link  <?= $rutaActiveClass == 'empleados' ? 'active' : '' ?>" aria-current="page" href="index.php?ruta=empleados">Empleados</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link <?= $rutaActiveClass == 'usuarios' ? 'active' : '' ?>" href="index.php?ruta=usuarios">Usuarios</a>
-                </li>
+                <?php if ($_SESSION['rol'] == 'developer' || $_SESSION['rol'] == 'admin') : ?>
+                    <li class="nav-item">
+                        <a class="nav-link <?= $rutaActiveClass == 'usuarios' ? 'active' : '' ?>" href="index.php?ruta=usuarios">Usuarios</a>
+                    </li>
+                <?php endif ?>
                 <li class="nav-item">
                     <a class="nav-link <?= $rutaActiveClass == 'marcaciones' ? 'active' : '' ?>" href="index.php?ruta=marcaciones">Marcaciones</a>
                 </li>

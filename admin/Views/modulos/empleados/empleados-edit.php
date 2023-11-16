@@ -58,14 +58,6 @@ $lugares = MarcacionController::lugares();
                 </div>
 
                 <div class="form-group">
-                    <label for="estado">Estado</label>
-                    <select id="estado" class="form-control" name="estado" required>
-                        <option value="1" <?= $infoEmpleado['estado'] == 1 ? 'selected' : '' ?>>Activo</option>
-                        <option value="0" <?= $infoEmpleado['estado'] == 0 ? 'selected' : '' ?>>Inactivo</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label for="lugar_marcacion">Lugar de marcación</label>
                     <select id="lugar_marcacion" class="form-control" name="lugar_marcacion" required>
                         <option value="" selected disabled>-- Seleccionar --</option>

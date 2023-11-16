@@ -1,7 +1,6 @@
 <?php
 $usuarios = UsuarioController::listarUsuarios();
 
-
 ?>
 <div class="container">
 

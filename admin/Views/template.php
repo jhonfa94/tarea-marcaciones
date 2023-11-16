@@ -55,7 +55,7 @@
             if (in_array($ruta, [
                 'usuarios',
                 'usuarios-edit',
-            ])) {
+            ]) && in_array($_SESSION['rol'], ['developer', 'admin'])) {
                 include "modulos/usuarios/{$ruta}.php";
             }
             if (in_array($ruta, [
